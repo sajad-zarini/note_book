@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import com.example.notebook.R
 import com.example.notebook.adapters.PinnedRVAdapter
 import com.example.notebook.databinding.FragmentHomeBinding
@@ -20,6 +21,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, container, false)
+
+        binding.fragmentHome = this
 
         setupPinnedRecyclerview()
 
@@ -40,6 +43,10 @@ class HomeFragment : Fragment() {
         }
 
         binding.pinnedRv.adapter = PinnedRVAdapter(data)
+    }
+
+    fun fabOnClick(view: View) {
+        view.findNavController().navigate(R.id.action_homeFragment_to_singleNoteFragment)
     }
 
 }
