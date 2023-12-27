@@ -5,21 +5,288 @@
 
     <data>
 
+        <variable
+            name="SingleNote"
+            type="com.example.notebook.ui.SingleNoteFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/mainCoord"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.SingleNoteFragment">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/single_note_con"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="110dp"
+            tools:context=".ui.SingleNoteFragment">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/top_main_guide_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.02" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.035" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.965" />
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/single_note_appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/top_main_guide_line" />
+
+            <EditText
+                android:id="@+id/title_edt_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:hint="@string/title"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textPersonName"
+                android:maxLength="25"
+                android:minHeight="48dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/include" />
+
+            <EditText
+                android:id="@+id/note_edt_txt"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="@string/enter_your_text"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textPersonName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/title_edt_txt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_check_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Single Fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:clickable="true"
+            android:contentDescription="@string/add_note"
+            android:focusable="true"
+            app:backgroundTint="#FFFFFF"
+            app:elevation="15dp"
+            app:layout_anchor="@id/color_choose_bottom_appbar"
+            app:maxImageSize="30dp"
+            app:srcCompat="@drawable/baseline_check_24"
+            tools:ignore="MissingConstraints,SpeakableTextPresentCheck" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/color_choose_bottom_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_gravity="bottom"
+            app:elevation="20dp"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/color6"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/colors_view_shape"
+                    android:backgroundTint="#7FFB76"
+                    android:onClick="@{(view) -> SingleNote.onColorViewClick(check6)}"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/color5"
+                    app:layout_constraintTop_toTopOf="@+id/guideline11"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/color5"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/colors_view_shape"
+                    android:backgroundTint="#FF419A"
+                    android:onClick="@{(view) -> SingleNote.onColorViewClick(check5)}"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toStartOf="@+id/color6"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/color4"
+                    app:layout_constraintTop_toTopOf="@+id/guideline11"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/color4"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/colors_view_shape"
+                    android:backgroundTint="#D77FFD"
+                    android:onClick="@{(view) -> SingleNote.onColorViewClick(check4)}"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toStartOf="@+id/color5"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/color3"
+                    app:layout_constraintTop_toTopOf="@+id/guideline11"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/color3"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/colors_view_shape"
+                    android:backgroundTint="#FFCC36"
+                    android:onClick="@{(view) -> SingleNote.onColorViewClick(check3)}"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toStartOf="@+id/color4"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/color2"
+                    app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+                <View
+                    android:id="@+id/color2"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/colors_view_shape"
+                    android:backgroundTint="#8069FF"
+                    android:onClick="@{(view) -> SingleNote.onColorViewClick(check2)}"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toStartOf="@+id/color3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/color1"
+                    app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+                <View
+                    android:id="@+id/color1"
+                    android:layout_width="50dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/colors_view_shape"
+                    android:backgroundTint="#64C8FD"
+                    android:onClick="@{(view) -> SingleNote.onColorViewClick(check1)}"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toStartOf="@+id/color2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline11" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.87" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.4" />
+
+                <ImageView
+                    android:id="@+id/check1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/color1"
+                    app:layout_constraintEnd_toEndOf="@+id/color1"
+                    app:layout_constraintStart_toStartOf="@+id/color1"
+                    app:layout_constraintTop_toTopOf="@+id/color1"
+                    app:srcCompat="@drawable/baseline_check_24" />
+
+                <ImageView
+                    android:id="@+id/check2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/color2"
+                    app:layout_constraintEnd_toEndOf="@+id/color2"
+                    app:layout_constraintStart_toStartOf="@+id/color2"
+                    app:layout_constraintTop_toTopOf="@+id/color2"
+                    app:srcCompat="@drawable/baseline_check_24" />
+
+                <ImageView
+                    android:id="@+id/check3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/color3"
+                    app:layout_constraintEnd_toEndOf="@+id/color3"
+                    app:layout_constraintStart_toStartOf="@+id/color3"
+                    app:layout_constraintTop_toTopOf="@+id/color3"
+                    app:srcCompat="@drawable/baseline_check_24" />
+
+                <ImageView
+                    android:id="@+id/check4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toEndOf="@+id/color4"
+                    app:layout_constraintStart_toStartOf="@+id/color4"
+                    app:layout_constraintTop_toTopOf="@+id/color4"
+                    app:srcCompat="@drawable/baseline_check_24" />
+
+                <ImageView
+                    android:id="@+id/check5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/color5"
+                    app:layout_constraintEnd_toEndOf="@+id/color5"
+                    app:layout_constraintStart_toStartOf="@+id/color5"
+                    app:layout_constraintTop_toTopOf="@+id/color5"
+                    app:srcCompat="@drawable/baseline_check_24" />
+
+                <ImageView
+                    android:id="@+id/check6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline10"
+                    app:layout_constraintEnd_toEndOf="@+id/color6"
+                    app:layout_constraintStart_toStartOf="@+id/color6"
+                    app:layout_constraintTop_toTopOf="@+id/color6"
+                    app:srcCompat="@drawable/baseline_check_24" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

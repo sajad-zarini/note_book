@@ -6,4 +6,8 @@
     <string name="pinned">pinned</string>
     <string name="upcoming">upcoming</string>
     <string name="click_to_add_notes">Cliclk + to Add notes</string>
+    <string name="pin">pin</string>
+    <string name="options">Options</string>
+    <string name="title">Title...</string>
+    <string name="enter_your_text">Enter Your text..</string>
 </resources>
