@@ -96,6 +96,18 @@ class SingleNoteFragment : Fragment() {
         }
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        val item = menu.findItem(R.id.pin_item)
+
+        if (pinned) {
+            item.icon = ContextCompat.getDrawable(requireActivity(), R.drawable.baseline_push_pin_24)
+        }else {
+            item.icon = ContextCompat.getDrawable(requireActivity(), R.drawable.baseline_outline_push_pin_24)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -178,7 +190,13 @@ class SingleNoteFragment : Fragment() {
                         color = color,
                         pin = pinned
                     )
-                    viewModel.insertNoteToDatabase(noteModel)
+
+                    if (isUpdating) {
+                        val updateEntity = NoteEntity(noteEntity.uid, noteModel)
+                        viewModel.updateNoteInDatabase(updateEntity)
+                    }else {
+                        viewModel.insertNoteToDatabase(noteModel)
+                    }
 
                     Navigation.findNavController(view).navigate(R.id.action_singleNoteFragment_to_homeFragment)
                 }
