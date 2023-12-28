@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -89,6 +90,21 @@ class HomeFragment : Fragment(), CardClickListener {
     override fun onItemClickListener(noteEntity: NoteEntity) {
         val bundle = bundleOf("data_model" to noteEntity)
         Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_singleNoteFragment, bundle)
+    }
+
+    override fun onMenuClickListener(imageFilterButton: View, noteEntity: NoteEntity) {
+        val popupMenu = PopupMenu(requireActivity(), imageFilterButton)
+        popupMenu.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.delete_note -> {
+                    viewModel.deleteNote(noteEntity)
+                    true
+                }
+                else -> return@setOnMenuItemClickListener false
+            }
+        }
+        popupMenu.inflate(R.menu.actions)
+        popupMenu.show()
     }
 
 }

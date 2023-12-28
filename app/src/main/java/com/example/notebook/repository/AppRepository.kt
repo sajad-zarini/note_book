@@ -23,4 +23,8 @@ class AppRepository @Inject constructor(
     fun getAllData(): Flow<List<NoteEntity>> {
         return roomDao.getAll()
     }
+
+    fun deleteNote(noteEntity: NoteEntity) {
+        return roomDao.delete(noteEntity)
+    }
 }

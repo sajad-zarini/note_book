@@ -37,6 +37,10 @@ class UpcomingRvAdapter(private val model: ArrayList<NoteEntity>, var listener: 
                 listener.onItemClickListener(noteEntity)
             }
 
+            binding.imageFilterButton2.setOnClickListener {
+                listener.onMenuClickListener(it, noteEntity)
+            }
+
             binding.executePendingBindings()
         }
     }
