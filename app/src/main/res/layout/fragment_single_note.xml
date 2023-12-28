@@ -96,6 +96,7 @@
             android:contentDescription="@string/add_note"
             android:focusable="true"
             app:backgroundTint="#FFFFFF"
+            android:onClick="@{(view) -> SingleNote.addNoteClick(view)}"
             app:elevation="15dp"
             app:layout_anchor="@id/color_choose_bottom_appbar"
             app:maxImageSize="30dp"

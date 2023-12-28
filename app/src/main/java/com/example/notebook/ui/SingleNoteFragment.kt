@@ -27,6 +27,10 @@ class SingleNoteFragment : Fragment() {
         return binding.root
     }
 
+    fun addNoteClick(view: View) {
+
+    }
+
     fun onColorViewClick(check: View) {
         hideAllCheck()
 
