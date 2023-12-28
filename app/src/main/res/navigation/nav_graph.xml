@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/singleNoteFragment"
         android:name="com.example.notebook.ui.SingleNoteFragment"
-        android:label="fragment_single_note"
+        android:label="add Note"
         tools:layout="@layout/fragment_single_note" >
         <action
             android:id="@+id/action_singleNoteFragment_to_homeFragment"

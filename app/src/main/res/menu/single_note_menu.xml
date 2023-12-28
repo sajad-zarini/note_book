@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/pin_item"
-        android:icon="@drawable/baseline_push_pin_24"
+        android:icon="@drawable/baseline_outline_push_pin_24"
         android:title="@string/pin"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />

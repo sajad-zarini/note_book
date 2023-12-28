@@ -1,16 +1,16 @@
 package com.example.notebook.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.PrecomputedTextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notebook.R
 import com.example.notebook.databinding.PinnedRvItemsBinding
-import com.example.notebook.models.NoteModels
+import com.example.notebook.room.entities.NoteEntity
 
-class PinnedRVAdapter(private var data: ArrayList<NoteModels>) :
+class PinnedRVAdapter(private var data: ArrayList<NoteEntity>) :
     RecyclerView.Adapter<PinnedRVAdapter.PinnedRVViewHolder>() {
 
 
@@ -35,16 +35,18 @@ class PinnedRVAdapter(private var data: ArrayList<NoteModels>) :
 
     class PinnedRVViewHolder(private val binding:PinnedRvItemsBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(noteModels: NoteModels) {
+        fun bind(noteEntity: NoteEntity) {
             binding.pinnedTitle.setTextFuture(
                 PrecomputedTextCompat.getTextFuture(
-                    noteModels.title,
+                    noteEntity.noteModels.title,
                     binding.pinnedTitle.textMetricsParamsCompat,
                     null,
                 )
             )
+            binding.pinnedDescription.text = noteEntity.noteModels.notes
+            binding.pinnedCardView.setCardBackgroundColor(Color.parseColor(noteEntity.noteModels.color))
 
-            binding.pinnedDescription.text = noteModels.notes
+            binding.executePendingBindings()
         }
 
     }

@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
 
             if (data.isEmpty()) {
                 binding.clickToAddTxt.visibility = View.VISIBLE
-            }else {
+            } else {
                 binding.clickToAddTxt.visibility = View.GONE
             }
 
@@ -59,19 +59,23 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupPinnedRecyclerview() {
-        val data: ArrayList<NoteModels> = ArrayList()
-        data.add(NoteModels("note 1", "this is note 1", "", false))
-        data.add(NoteModels("note 2", "this is note 2", "", false))
-        data.add(NoteModels("note 3", "this is note 3", "", false))
-        data.add(NoteModels("note 4", "this is note 4", "", false))
+        viewModel.liveData.observe(viewLifecycleOwner) { listData ->
+            val data: ArrayList<NoteEntity> = ArrayList()
 
-        if (data.isEmpty()) {
-            binding.pinnedCon.visibility = View.GONE
-        }else {
-            binding.pinnedCon.visibility = View.VISIBLE
+            listData.forEach {
+                if (it.noteModels.pin) {
+                    data.add(it)
+                }
+            }
+
+            if (data.isEmpty()) {
+                binding.pinnedCon.visibility = View.GONE
+            } else {
+                binding.pinnedCon.visibility = View.VISIBLE
+            }
+
+            binding.pinnedRv.adapter = PinnedRVAdapter(data)
         }
-
-        binding.pinnedRv.adapter = PinnedRVAdapter(data)
     }
 
     fun fabOnClick(view: View) {

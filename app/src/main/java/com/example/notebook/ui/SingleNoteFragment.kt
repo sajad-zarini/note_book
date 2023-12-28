@@ -1,13 +1,23 @@
 package com.example.notebook.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import com.example.notebook.MainActivity
 import com.example.notebook.R
 import com.example.notebook.databinding.FragmentSingleNoteBinding
 import com.example.notebook.models.NoteModels
@@ -24,6 +34,11 @@ class SingleNoteFragment : Fragment() {
 
     private var savedColor = "#64C8FD"
 
+    private lateinit var mainActivity: MainActivity
+    private lateinit var navController: NavController
+
+    private var pinned = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +49,65 @@ class SingleNoteFragment : Fragment() {
         binding.singleNote = this
 
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setUpToolbar(view)
+    }
+
+    private fun setUpToolbar(view: View) {
+        navController = Navigation.findNavController(view)
+        val appBarConfiguration = AppBarConfiguration.Builder(R.id.singleNoteFragment).build()
+        val toolbar: Toolbar = view.findViewById(R.id.toolbar)
+        NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
+
+        mainActivity.setSupportActionBar(toolbar)
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // for change left icon of toolbar (back Icon)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.singleNoteFragment) {
+                toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_24)
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.single_note_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.pin_item ->
+                if (!pinned) {
+                    item.icon = ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.baseline_push_pin_24
+                    )
+                    pinned = !pinned
+                    true
+                } else {
+                    item.icon = ContextCompat.getDrawable(
+                        requireActivity(),
+                        R.drawable.baseline_outline_push_pin_24
+                    )
+                    pinned = !pinned
+                    true
+                }
+            android.R.id.home -> {
+                mainActivity.onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     fun addNoteClick(view: View) {
@@ -57,7 +131,7 @@ class SingleNoteFragment : Fragment() {
                         title = title,
                         notes = note,
                         color = color,
-                        pin = false
+                        pin = pinned
                     )
                     viewModel.insertNoteToDatabase(noteModel)
 
@@ -93,5 +167,10 @@ class SingleNoteFragment : Fragment() {
             this.check5.visibility = View.INVISIBLE
             this.check6.visibility = View.INVISIBLE
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
     }
 }
