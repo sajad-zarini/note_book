@@ -71,6 +71,12 @@ dependencies {
 
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$roomVersion")
+
+    /// kotlin coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    /// Gosn
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 // Allow references to generated code

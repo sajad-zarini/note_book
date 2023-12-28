@@ -39,10 +39,10 @@ class HomeFragment : Fragment() {
 
     private fun setupPinnedRecyclerview() {
         val data: ArrayList<NoteModels> = ArrayList()
-        data.add(NoteModels("note 1", "this is note 1"))
-        data.add(NoteModels("note 2", "this is note 2"))
-        data.add(NoteModels("note 3", "this is note 3"))
-        data.add(NoteModels("note 4", "this is note 4"))
+        data.add(NoteModels("note 1", "this is note 1", "", false))
+        data.add(NoteModels("note 2", "this is note 2", "", false))
+        data.add(NoteModels("note 3", "this is note 3", "", false))
+        data.add(NoteModels("note 4", "this is note 4", "", false))
 
         if (data.isEmpty()) {
             binding.pinnedCon.visibility = View.GONE
