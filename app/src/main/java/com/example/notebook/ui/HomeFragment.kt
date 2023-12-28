@@ -1,6 +1,7 @@
 package com.example.notebook.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +13,14 @@ import com.example.notebook.R
 import com.example.notebook.adapters.PinnedRVAdapter
 import com.example.notebook.adapters.UpcomingRvAdapter
 import com.example.notebook.databinding.FragmentHomeBinding
+import com.example.notebook.listener.CardClickListener
 import com.example.notebook.models.NoteModels
 import com.example.notebook.room.entities.NoteEntity
 import com.example.notebook.viewModel.AppViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CardClickListener {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -54,7 +56,7 @@ class HomeFragment : Fragment() {
                 binding.clickToAddTxt.visibility = View.GONE
             }
 
-            binding.upcomingRv.adapter = UpcomingRvAdapter(data)
+            binding.upcomingRv.adapter = UpcomingRvAdapter(data, this)
         }
     }
 
@@ -74,12 +76,16 @@ class HomeFragment : Fragment() {
                 binding.pinnedCon.visibility = View.VISIBLE
             }
 
-            binding.pinnedRv.adapter = PinnedRVAdapter(data)
+            binding.pinnedRv.adapter = PinnedRVAdapter(data, this)
         }
     }
 
     fun fabOnClick(view: View) {
         view.findNavController().navigate(R.id.action_homeFragment_to_singleNoteFragment)
+    }
+
+    override fun onItemClickListener(noteEntity: NoteEntity) {
+        Log.e("TAG", "onItemClickListener: ${noteEntity.noteModels.title}")
     }
 
 }
