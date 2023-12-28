@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.notebook.R
 import com.example.notebook.adapters.PinnedRVAdapter
 import com.example.notebook.databinding.FragmentHomeBinding
 import com.example.notebook.models.NoteModels
+import com.example.notebook.viewModel.AppViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,16 +22,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    @Inject
-    lateinit var name:String
+    private val viewModel: AppViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_home, container, false)
-
-        Log.e("TAG", "onCreateView: $name" )
 
         binding.fragmentHome = this
 
