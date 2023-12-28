@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.example.notebook.R
 import com.example.notebook.adapters.PinnedRVAdapter
@@ -85,7 +87,8 @@ class HomeFragment : Fragment(), CardClickListener {
     }
 
     override fun onItemClickListener(noteEntity: NoteEntity) {
-        Log.e("TAG", "onItemClickListener: ${noteEntity.noteModels.title}")
+        val bundle = bundleOf("data_model" to noteEntity)
+        Navigation.findNavController(binding.root).navigate(R.id.action_homeFragment_to_singleNoteFragment, bundle)
     }
 
 }

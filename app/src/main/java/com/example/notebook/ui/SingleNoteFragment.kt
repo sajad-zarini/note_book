@@ -1,6 +1,7 @@
 package com.example.notebook.ui
 
 import android.content.Context
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import com.example.notebook.MainActivity
 import com.example.notebook.R
 import com.example.notebook.databinding.FragmentSingleNoteBinding
 import com.example.notebook.models.NoteModels
+import com.example.notebook.room.entities.NoteEntity
 import com.example.notebook.viewModel.AppViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,12 +34,16 @@ class SingleNoteFragment : Fragment() {
 
     private val viewModel: AppViewModel by viewModels()
 
+    private lateinit var noteEntity: NoteEntity
+
     private var savedColor = "#64C8FD"
 
     private lateinit var mainActivity: MainActivity
     private lateinit var navController: NavController
 
     private var pinned = false
+
+    private var isUpdating = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +54,46 @@ class SingleNoteFragment : Fragment() {
 
         binding.singleNote = this
 
+        getData()
+
         return binding.root
+    }
+
+    private fun Bundle.parcelable(key: String): NoteEntity = when {
+        SDK_INT >= 33 -> getParcelable(key, NoteEntity::class.java)!!
+        else -> (@Suppress("DEPRECATION") getParcelable(key) as? NoteEntity)!!
+    }
+
+    private fun getData() {
+        if (arguments != null) {
+
+            noteEntity = arguments?.parcelable("data_model")!!
+
+            binding.titleEdtTxt.setText(noteEntity.noteModels.title)
+            binding.noteEdtTxt.setText(noteEntity.noteModels.notes)
+
+            pinned = noteEntity.noteModels.pin
+            savedColor = noteEntity.noteModels.color
+
+            isUpdating = true
+
+            hideAllCheck()
+            colorCheckToVisible(noteEntity.noteModels.color)
+        }
+    }
+
+    /// visible exact color according to card click
+    private fun colorCheckToVisible(color: String) {
+        binding.apply {
+            when (color) {
+                "#64C8FD" -> this.check1.visibility = View.VISIBLE
+                "#8069FF" -> this.check2.visibility = View.VISIBLE
+                "#FFCC36" -> this.check3.visibility = View.VISIBLE
+                "#D77FFD" -> this.check4.visibility = View.VISIBLE
+                "#FF419A" -> this.check5.visibility = View.VISIBLE
+                "#7FFB76" -> this.check6.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
