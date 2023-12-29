@@ -1,14 +1,15 @@
 <resources>
     <string name="app_name">Note Book</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_note">add note</string>
     <string name="reminders">Reminders</string>
     <string name="pinned">pinned</string>
     <string name="upcoming">upcoming</string>
-    <string name="click_to_add_notes">Cliclk + to Add notes</string>
+    <string name="click_to_add_notes">Click + to Add notes</string>
     <string name="pin">pin</string>
     <string name="options">Options</string>
-    <string name="title">Title...</string>
+    <string name="title">Title…</string>
     <string name="enter_your_text">Enter Your text..</string>
     <string name="delete">delete</string>
+    <string name="options_notes">options notes</string>
+    <string name="profile_image">profile image</string>
 </resources>

@@ -180,8 +180,8 @@ class SingleNoteFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 } else {
-                    val title = this.noteEdtTxt.text.toString()
-                    val note = this.titleEdtTxt.text.toString()
+                    val title = this.titleEdtTxt.text.toString()
+                    val note = this.noteEdtTxt.text.toString()
                     val color = savedColor
 
                     val noteModel = NoteModels(
